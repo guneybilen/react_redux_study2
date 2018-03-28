@@ -25,18 +25,41 @@ export default function(state = {}, action) {
 
   switch(action.type) {
 
+    // VERY IMPORTANT:
+    // "Whenever a post is deleted update local cache."
+    // From my personal experiment; if you do not clear
+    // the local cache, as is done here below with 
+    // _.omit(state, action.payload);
+    // the deleted item appears as a flashing for some miliseconds 
+    // in the index posts page.
     case DELETE_POST:
+
+      // action.payload here contains only id from the deletePost
+      // action creator function located in actions/index.js.
+      //
+      // .omit does not modify the existing state object.
+      // .omit returns a new state object with that particular
+      // id not present anymore. Instead of an array for the state,
+      // using object list in object as for the state, deleting a record
+      // becomes more obvious, easier and faster. 
       return _.omit(state, action.payload);
 
     case FETCH_POST:
       
-      /* ES5 
-      const post = action.payload.data;
-      const newState = { ...state };
-      newState[post.id] = post;
-      return newState;
+      /* 
+        with ES5: 
+        const post = action.payload.data;
+        const newState = { ...state };
+        newState[post.id] = post;
+        return newState;
       */
-      return { ...state, [action.payload.data.id]:action.payload.data }
+
+      // we are accumulating with the previous state the new data
+      // Instructor, Stephen Grider, does not explain why exactly 
+      // this accumulation would benefit us.
+      // [action.payload.data.id] makes a new key interpolation for the object
+      return { ...state, [action.payload.data.id]: action.payload.data }
+
     case FETCH_POSTS:
       // console.log(action.payload.data); // [ post1, post2 ]
       // we need to transform it to:
@@ -62,7 +85,7 @@ export default function(state = {}, action) {
         => {"id":4,"title":"Hi"}
       */  
       return _.mapKeys(action.payload.data, 'id');
-      
+
     default:
       return state;
   }

@@ -7,6 +7,11 @@ import { createPost } from '../actions';
 class PostsNew extends Component {
 
   renderField(field) {
+    // {meta: {touched: touched, error: error}} NOT TRUE HERE!!!
+    // {meta: {touched, error}} THIS IS LIKE THIS HERE IN ORDER TO
+    // DESTRUCTORE THE meta OBJECT. NOT A SHORTENED FORM HERE.
+    // THIS IS HOW THE NESTED OBJECT DESTRUCTURING DONE
+    // const {touched, error} = field.meta - can be done like this.
     const { meta: { touched, error } } = field;
     const className = `form-group ${touched && error ? 'has-danger' : ''}`;
     
@@ -27,6 +32,9 @@ class PostsNew extends Component {
 
   onSubmit(values) {
     // we bound this, so this === component
+    //
+    // <Route path="/posts/new" component={PostsNew} /> in index.js means
+    // this component has reach for navigation utilities.
     this.props.createPost(values, () => {
       this.props.history.push('/');
     });

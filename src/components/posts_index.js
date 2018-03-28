@@ -1,6 +1,7 @@
 
 import _ from 'lodash'; 
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchPosts } from '../actions';
@@ -24,11 +25,12 @@ class PostsIndex extends Component {
 
   renderPosts() {
 
-    // in this project array list of posts has been changed object list
-    // of posts see notes in reducer_posts.js.
-    // objects do not have map function we need to use lodash map here
-    // that is used to mapping objects and here will return here an array 
-    // of list just like the Reac expects of lists. 
+    // In this project; array list of posts has been changed 
+    // to object list of posts. (see notes in reducer_posts.js.)
+    // Objects do not have map function. We need to use 
+    // lodash's map function here, which is used for mapping objects.
+    // The return will be here an array of list,
+    // just like the React expects of lists to be. 
     return _.map(this.props.posts, post => {
       return (
         <li className="list-group-item" key={post.id}>
