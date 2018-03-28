@@ -11,7 +11,14 @@ import PostsNew from './components/posts_new';
 import PostsShow from './components/posts_show';
 
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+/* 
+with the <Switch> component router will not render multiple
+matching components on one route and with <Switch> component
+only one most specific component will render. You need to
+order your components from the most specific at top.
+ */
+
+ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
