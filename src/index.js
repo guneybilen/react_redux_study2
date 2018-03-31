@@ -10,6 +10,13 @@ import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';
 import PostsShow from './components/posts_show';
 
+import thunk from 'redux-thunk';
+
+// redux-logger is for beautiful redux logs. 
+// Very important package for debugging.
+// Do not forget to add it in among other applyMiddleware arguments.
+import logger from 'redux-logger';  
+
 
 /* 
 with the <Switch> component router will not render multiple
@@ -18,7 +25,7 @@ only one most specific component will render. You need to
 order your components from the most specific at top.
  */
 
- const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+ const createStoreWithMiddleware = applyMiddleware(promise, thunk, logger)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { FETCH_POSTS, FETCH_POST,DELETE_POST } from '../actions';
+import { FETCH_POSTS, FETCH_POST,DELETE_POST, ERORR } from '../actions';
 
 // Objects of records are easier to find in a list then 
 // an list of records in an array. With objects of records,
@@ -85,6 +85,9 @@ export default function(state = {}, action) {
         => {"id":4,"title":"Hi"}
       */  
       return _.mapKeys(action.payload.data, 'id');
+
+    case ERORR:
+      return null;
 
     default:
       return state;
